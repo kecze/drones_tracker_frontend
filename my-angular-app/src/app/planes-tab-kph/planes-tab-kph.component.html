@@ -1,0 +1,24 @@
+<table style="border: 1px solid black; width: 100%">
+    <thead>
+      <tr>
+        <th>ICAO</th>
+        <th>Speed (km/h)</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>Altitude</th>
+        <th>Timestamp</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let plane of planes">
+        <td>{{ plane.icao }}</td>
+        <td>{{ plane.speed | number: '1.0-0' }}</td>
+        <td>{{ plane.lat | number: '1.6-6' }}</td>
+        <td>{{ plane.lon | number: '1.6-6' }}</td>
+        <td>{{ plane.alt }}</td>
+        <td>{{ plane.timestamp | date: 'HH:mm:ss' }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  
