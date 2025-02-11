@@ -2,13 +2,14 @@ import { Component } from '@angular/core';
 import { PlanesHistoryServiceService } from './planes-history-service.service';
 import { PlanesMapComponent } from './planes-map/planes-map.component'; 
 import { PlanesTabKphComponent } from './planes-tab-kph/planes-tab-kph.component';
+import { PlanesTabMphComponent } from './planes-tab-mph/planes-tab-mph.component';
 import { CommonModule } from '@angular/common';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true, 
-  imports: [CommonModule, PlanesMapComponent, PlanesTabKphComponent, RouterOutlet],
+  imports: [CommonModule, PlanesMapComponent, PlanesTabKphComponent, PlanesTabMphComponent, RouterOutlet],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
