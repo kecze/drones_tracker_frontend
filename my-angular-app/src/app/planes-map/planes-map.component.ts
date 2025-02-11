@@ -1,4 +1,5 @@
-import { Component, AfterViewInit, Input } from '@angular/core';
+import { Component, AfterViewInit, Input, OnChanges } from '@angular/core';
+import { PlanesHistoryServiceService } from '../planes-history-service.service';
 import * as L from 'leaflet';
 
 @Component({
@@ -7,11 +8,14 @@ import * as L from 'leaflet';
   templateUrl: './planes-map.component.html',
   styleUrls: ['./planes-map.component.css']
 })
-export class PlanesMapComponent implements AfterViewInit {
-  private map: any;
+export class PlanesMapComponent implements AfterViewInit, OnChanges {
+  private map: any; 
   private markers: L.Marker[] = [];
+  private paths: { [icao: string]: L.Polyline } = {};
 
   @Input() planes: any[] = []; 
+
+  constructor(private historyService: PlanesHistoryServiceService) {}
 
   ngAfterViewInit(): void {
     this.initMap();
@@ -37,11 +41,14 @@ export class PlanesMapComponent implements AfterViewInit {
         iconSize: [30, 30],
         iconAnchor: [15, 15]
       });
+
       const marker = L.marker([plane.lat, plane.lon], { icon })
         .addTo(this.map)
         .bindPopup(`ICAO: ${plane.icao}<br>Speed: ${plane.speed} km/h`);
       this.markers.push(marker);
     });
+
+    this.drawPaths();
 
     if (this.planes.length > 0) {
       const bounds = L.latLngBounds(this.markers.map(marker => marker.getLatLng()));
@@ -53,5 +60,22 @@ export class PlanesMapComponent implements AfterViewInit {
     if (this.map) {
       this.updateMap(); 
     }
+  }
+
+  private drawPaths(): void {
+    this.historyService.history$.subscribe(history => {
+      Object.keys(history).forEach(icao => {
+        const pathCoordinates: [number, number][] = history[icao].map(frame => [frame.lat, frame.lon] as [number, number]);
+        if (this.paths[icao]) {
+          this.paths[icao].setLatLngs(pathCoordinates);
+        } else {
+          const polyline = L.polyline(pathCoordinates, {
+            color: 'red',
+            weight: 2
+          }).addTo(this.map);
+          this.paths[icao] = polyline;
+        }
+      });
+    });
   }
 }
