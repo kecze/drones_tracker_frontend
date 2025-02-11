@@ -37,4 +37,20 @@ export class PlanesHistoryServiceService {
       this.historySubject.next(this.history);
     });
    }
+
+   getHistory(icao: string): PlaneFrame[] {
+      return this.history[icao] || [];
+    }
+
+    addFrame(icao: string, frame: PlaneFrame) {
+      if (!this.history[icao]) {
+        this.history[icao] = [];
+      }
+      this.history[icao].push(frame);
+
+      if (this.history[icao].length > 20) {
+        this.history[icao].shift();
+      }
+      this.historySubject.next(this.history);
+    }
 }
