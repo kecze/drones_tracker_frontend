@@ -3,8 +3,6 @@ import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { interval } from 'rxjs';
 
-
-
 interface PlaneFrame {
   icao: string;
   speed: number;
@@ -19,6 +17,7 @@ interface PlaneFrame {
 })
 export class PlanesFrameGeneratorService {
   private icaoList: string[] = [];
+  private basePositions: { [icao: string]: { lat: number, lon: number } } = {};
 
   constructor() { 
     this.generateICAOList();
@@ -26,14 +25,21 @@ export class PlanesFrameGeneratorService {
 
   private generateICAOList() {
     const letters = 'QWERTYUIOPASDFGHJKLZXCVBNM';
-    for (let i = 0; i < 5; i++) {
-      this.icaoList.push(
-        letters[Math.floor(Math.random() * 26)] +
-        letters[Math.floor(Math.random() * 26)] +
-        letters[Math.floor(Math.random() * 26)] +
-        letters[Math.floor(Math.random() * 26)] 
+    const baseLat = 52.15594; 
+    const baseLon = 20.99754;  
+    const areaRange = 0.2;  
 
-      );
+    for (let i = 0; i < 5; i++) {
+      const icao = 
+        letters[Math.floor(Math.random() * 26)] +
+        letters[Math.floor(Math.random() * 26)] +
+        letters[Math.floor(Math.random() * 26)] +
+        letters[Math.floor(Math.random() * 26)];
+      this.icaoList.push(icao);
+      this.basePositions[icao] = {
+        lat: baseLat + (Math.random() * areaRange * 2 - areaRange),
+        lon: baseLon + (Math.random() * areaRange * 2 - areaRange)
+      };
     }
   }
 
@@ -44,11 +50,14 @@ export class PlanesFrameGeneratorService {
   }
 
   private generateFrame(icao: string): PlaneFrame {
+    const base = this.basePositions[icao];
+    const range = 0.009; 
+
     return {
       icao,
       speed: Math.floor(Math.random() * 1000),
-      lat: Math.random() * 180 - 90,
-      lon: Math.random() * 360 - 180,
+      lat: base.lat + (Math.random() * range * 2 - range),
+      lon: base.lon + (Math.random() * range * 2 - range),
       alt: Math.floor(Math.random() * 10000),
       timestamp: Date.now()
     };

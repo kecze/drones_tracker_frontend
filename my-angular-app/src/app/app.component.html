@@ -1,7 +1,10 @@
 <div class="container">
   <h1 class="title">Drone Tracker</h1>
   <p class="info">Recruitment task by Piotr Kaczmarek.</p>
+  <p class="desc">Table containing generated data for 5 drones</p>
   <app-planes-tab-kph></app-planes-tab-kph>
+  <p class="desc">Map containing generated data for 5 drones</p>
+  <app-planes-map [planes]="planes"></app-planes-map>
   <router-outlet></router-outlet>
 </div>
 
