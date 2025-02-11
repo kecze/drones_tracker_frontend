@@ -16,7 +16,7 @@
         <td>{{ plane.lat }}</td>
         <td>{{ plane.lon }}</td>
         <td>{{ plane.alt }}</td>
-        <td>{{ plane.timestamp }}</td>
+        <td>{{ plane.timestamp | date: 'HH:mm:ss' }}</td>
       </tr>
     </tbody>
   </table>
