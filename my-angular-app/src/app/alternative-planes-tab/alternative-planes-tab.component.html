@@ -1,1 +1,22 @@
-<p>alternative-planes-tab works!</p>
+<table>
+    <thead>
+      <tr>
+        <th>ICAO</th>
+        <th>Speed (km/h)</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th>Altitude (m)</th>
+        <th>Timestamp</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let plane of planes">
+        <td>{{ plane.icao }}</td>
+        <td>{{ plane.speed }}</td>
+        <td>{{ plane.lat }}</td>
+        <td>{{ plane.lon }}</td>
+        <td>{{ plane.alt }}</td>
+        <td>{{ plane.timestamp | date: 'HH:mm:ss' }}</td>
+      </tr>
+    </tbody>
+  </table>

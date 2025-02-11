@@ -1,11 +1,29 @@
 <div class="container">
   <h1 class="title">Drone Tracker</h1>
   <p class="info">Recruitment task by Piotr Kaczmarek.</p>
-  <p class="desc">Table containing generated data for 5 drones</p>
-  <app-planes-tab-kph></app-planes-tab-kph>
   <p class="desc">Map containing generated data for 5 drones</p>
-  <app-planes-map [planes]="planes"></app-planes-map>
-  <router-outlet></router-outlet>
+
+  <div class="main-content">
+    <div class="left-container">
+      <app-planes-map [planes]="planes"></app-planes-map>
+    </div>
+    <div class="right-container">
+      <div class="table-section">
+        <p class="desc">KPH Table containing generated data for 5 drones</p>
+        <app-planes-tab-kph></app-planes-tab-kph>
+      </div>
+      
+      <div class="table-section">
+        <p class="desc">MPH Table containing generated data for 5 drones</p>
+        <app-planes-tab-mph></app-planes-tab-mph>
+      </div>
+      
+      <div class="table-section">
+        <p class="desc">Alternative table containing generated data for 5 drones</p>
+        <app-alternative-planes-tab></app-alternative-planes-tab>
+      </div>
+    </div>
+  </div>
 </div>
 
 

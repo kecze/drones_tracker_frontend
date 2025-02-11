@@ -10,6 +10,8 @@ import { CommonModule } from '@angular/common';
 })
 export class PlanesTabKphComponent implements OnInit {
   planes: any[] = [];
+  sortColumn: string = 'icao';
+  sortAsc: boolean = true;
 
   constructor(private historyService: PlanesHistoryServiceService) { }
 
@@ -17,5 +19,16 @@ export class PlanesTabKphComponent implements OnInit {
     this.historyService.history$.subscribe((history) => {
       this.planes = Object.values(history).map((frames) => frames[frames.length - 1]);
     });
+  }
+
+  sortTable() {
+    this.planes.sort((a, b) => {
+      const valueA = a[this.sortColumn].toString();
+      const valueB = b[this.sortColumn].toString();
+
+      return this.sortAsc
+        ? valueA.localeCompare(valueB)
+        : valueB.localeCompare(valueA);
+    })
   }
 }
