@@ -17,7 +17,7 @@ interface PlaneFrame {
 })
 export class PlanesFrameGeneratorService {
   private icaoList: string[] = [];
-  private basePositions: { [icao: string]: { lat: number, lon: number } } = {};
+  private basePositions: { [icao: string]: { lat: number, lon: number, speed: number, direction: number } } = {};
 
   constructor() { 
     this.generateICAOList();
@@ -38,7 +38,9 @@ export class PlanesFrameGeneratorService {
       this.icaoList.push(icao);
       this.basePositions[icao] = {
         lat: baseLat + (Math.random() * areaRange * 2 - areaRange),
-        lon: baseLon + (Math.random() * areaRange * 2 - areaRange)
+        lon: baseLon + (Math.random() * areaRange * 2 - areaRange),
+        speed: Math.floor(Math.random() * 1000),
+        direction: Math.random() * 360
       };
     }
   }
@@ -51,13 +53,21 @@ export class PlanesFrameGeneratorService {
 
   private generateFrame(icao: string): PlaneFrame {
     const base = this.basePositions[icao];
-    const range = 0.009; 
+    const range = 0.004; 
 
+    const newLat = base.lat + (Math.sin(base.direction * Math.PI / 180) * range);
+    const newLon = base.lon + (Math.cos(base.direction * Math.PI / 180) * range);
+
+    base.speed = Math.floor(Math.random() * 1000);
+    base.direction += (Math.random() * 60 - 30);
+
+    base.lat = newLat;
+    base.lon = newLon;
     return {
       icao,
-      speed: Math.floor(Math.random() * 1000),
-      lat: base.lat + (Math.random() * range * 2 - range),
-      lon: base.lon + (Math.random() * range * 2 - range),
+      speed: base.speed,
+      lat: base.lat,
+      lon: base.lon,
       alt: Math.floor(Math.random() * 10000),
       timestamp: Date.now()
     };
