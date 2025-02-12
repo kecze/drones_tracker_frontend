@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { PlanesHistoryServiceService } from '../planes-history-service.service';
 import { CommonModule } from '@angular/common';
 
+
 @Component({
   selector: 'app-planes-tab-mph',
   imports: [CommonModule],
@@ -21,5 +22,9 @@ export class PlanesTabMphComponent implements OnInit{
 
   convertKphToMph(kph: number): number {
     return kph * 0.621371;
+  }
+
+  convertMetersToFeet(meters: number): number {
+    return meters * 3.28084;
   }
 }

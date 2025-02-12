@@ -37,7 +37,10 @@ export class PlanesMapComponent implements AfterViewInit, OnChanges {
     this.planes.forEach(plane => {
       const icon = L.divIcon({
         className: 'plane-icon',
-        html: `<div style="font-size: 12px; font-weight: bold; color: black;">✈${plane.icao}</div>`,
+        html: `<div style="font-size: 12px; font-weight: bold; color: black;">✈${plane.icao}</div>
+              <div style="font-size: 9px; color: black; background-color: rgba(255, 255, 255, 0.7); padding: 2px; border-radius: 5px; white-space: nowrap; display: inline-block;">
+              Lat: ${plane.lat.toFixed(4)} | Lon: ${plane.lon.toFixed(4)}
+              </div>`,
         iconSize: [30, 30],
         iconAnchor: [15, 15]
       });

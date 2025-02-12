@@ -5,12 +5,11 @@ import { PlanesTabKphComponent } from './planes-tab-kph/planes-tab-kph.component
 import { PlanesTabMphComponent } from './planes-tab-mph/planes-tab-mph.component';
 import { AlternativePlanesTabComponent } from './alternative-planes-tab/alternative-planes-tab.component';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   standalone: true, 
-  imports: [CommonModule, PlanesMapComponent, PlanesTabKphComponent, PlanesTabMphComponent, RouterOutlet, AlternativePlanesTabComponent],
+  imports: [CommonModule, PlanesMapComponent, PlanesTabKphComponent, PlanesTabMphComponent, AlternativePlanesTabComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })

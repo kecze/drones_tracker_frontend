@@ -58,7 +58,7 @@ export class PlanesFrameGeneratorService {
     const newLat = base.lat + (Math.sin(base.direction * Math.PI / 180) * range);
     const newLon = base.lon + (Math.cos(base.direction * Math.PI / 180) * range);
 
-    base.speed = Math.floor(Math.random() * 1000);
+    base.speed = Math.floor(100 + Math.random() * 200);
     base.direction += (Math.random() * 60 - 30);
 
     base.lat = newLat;
@@ -68,7 +68,7 @@ export class PlanesFrameGeneratorService {
       speed: base.speed,
       lat: base.lat,
       lon: base.lon,
-      alt: Math.floor(Math.random() * 10000),
+      alt: Math.floor(2000 + Math.random() * 500),
       timestamp: Date.now()
     };
   }
