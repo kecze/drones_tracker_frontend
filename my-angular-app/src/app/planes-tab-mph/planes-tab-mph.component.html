@@ -5,7 +5,7 @@
         <th>Speed (mph)</th>
         <th>Latitude</th>
         <th>Longitude</th>
-        <th>Altitude</th>
+        <th>Altitude (ft)</th>
         <th>Timestamp</th>
       </tr>
     </thead>
@@ -15,7 +15,7 @@
         <td>{{ convertKphToMph(plane.speed) | number: '1.0-0' }}</td>
         <td>{{ plane.lat | number: '1.6-6' }}</td>
         <td>{{ plane.lon | number: '1.6-6' }}</td>
-        <td>{{ plane.alt }}</td>
+        <td>{{ convertMetersToFeet(plane.alt) | number: '1.0-0'}}</td>
         <td>{{ plane.timestamp | date: 'HH:mm:ss' }}</td>
       </tr>
     </tbody>

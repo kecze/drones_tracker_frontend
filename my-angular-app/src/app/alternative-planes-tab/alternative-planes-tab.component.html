@@ -12,9 +12,9 @@
     <tbody>
       <tr *ngFor="let plane of planes">
         <td>{{ plane.icao }}</td>
-        <td>{{ plane.speed }}</td>
-        <td>{{ plane.lat }}</td>
-        <td>{{ plane.lon }}</td>
+        <td>{{ plane.speed | number: '1.0-0' }}</td>
+        <td>{{ plane.lat | number: '1.6-6' }}</td>
+        <td>{{ plane.lon | number: '1.6-6' }}</td>
         <td>{{ plane.alt }}</td>
         <td>{{ plane.timestamp | date: 'HH:mm:ss' }}</td>
       </tr>
